@@ -1,6 +1,6 @@
 # Pre requirements
 
-* python2.7
+* python3.7
 * pip install -r requirements.txt
 
 # Start server
@@ -14,6 +14,6 @@ For api docs go to http://localhost:5000/apidocs
 
 # Running in docker
 
-* docker build -t watch-history-service:1.0 .
-* docker run -p 5000:5000 -d -t watch-history-service:1.0
+* docker build -t login-service:1.0 .
+* docker run -p 5000:5000 -d -t login-service:1.0
 
