@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: login
-          image: projectmovio/login-service
+          image: projectmovio/login-service:0.0.2
           ports:
             - containerPort: 8081
           resources:
