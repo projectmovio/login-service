@@ -18,6 +18,9 @@ class Login(core.Stack):
             mfa=cognito.Mfa.OFF,
             mfa_second_factor=cognito.MfaSecondFactor(otp=True, sms=False),
             self_sign_up_enabled=False,
+            standard_attributes=cognito.StandardAttributes(
+                email=cognito.StandardAttribute(mutable=False, required=True)
+            ),
             user_invitation=cognito.UserInvitationConfig(
                 email_subject="Movio email verification",
                 email_body="Thanks for signing up to movio! Your username is {username} and temporary password is {####}",
