@@ -15,12 +15,16 @@ class Login(core.Stack):
             "movio",
             account_recovery=cognito.AccountRecovery.EMAIL_ONLY,
             auto_verify=cognito.AutoVerifiedAttrs(email=True, phone=False),
-            mfa=cognito.Mfa.OPTIONAL,
+            mfa=cognito.Mfa.OFF,
             mfa_second_factor=cognito.MfaSecondFactor(otp=True, sms=False),
             self_sign_up_enabled=False,
+            user_invitation=cognito.UserInvitationConfig(
+                email_subject="Movio email verification",
+                email_body="Thanks for signing up to movio! Your username is {username} and temporary password is {####}",
+            ),
             user_verification=cognito.UserVerificationConfig(
                 email_subject="Movio email verification",
-                email_body="Hello {username}, Thanks for signing up to movio! Verify your account by clicking on {##Verify Email##}",
+                email_body="Thanks for signing up to movio! Verify your account by clicking on {##Verify Email##}",
                 email_style=cognito.VerificationEmailStyle.LINK
-            )
+            ),
         )
