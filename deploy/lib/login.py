@@ -12,7 +12,6 @@ class Login(core.Stack):
         UserPool(
             self,
             "movio",
-            user_pool_name="movio-userpool",
             mfa=Mfa.OPTIONAL,
             mfa_second_factor=MfaSecondFactor(otp=True, sms=False),
             self_sign_up_enabled=False,
