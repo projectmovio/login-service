@@ -1,5 +1,6 @@
 from aws_cdk import core
-from aws_cdk.aws_cognito import UserPool, Mfa, MfaSecondFactor, UserVerificationConfig, VerificationEmailStyle
+
+import aws_cdk.aws_cognito as cognito
 
 
 class Login(core.Stack):
@@ -9,15 +10,17 @@ class Login(core.Stack):
         self._create_userpool()
 
     def _create_userpool(self):
-        UserPool(
+        cognito.UserPool(
             self,
             "movio",
-            mfa=Mfa.OPTIONAL,
-            mfa_second_factor=MfaSecondFactor(otp=True, sms=False),
+            account_recovery=cognito.AccountRecovery.EMAIL_ONLY,
+            auto_verify=cognito.AutoVerifiedAttrs(email=True, phone=False),
+            mfa=cognito.Mfa.OPTIONAL,
+            mfa_second_factor=cognito.MfaSecondFactor(otp=True, sms=False),
             self_sign_up_enabled=False,
-            user_verification=UserVerificationConfig(
+            user_verification=cognito.UserVerificationConfig(
                 email_subject="Movio email verification",
                 email_body="Hello {username}, Thanks for signing up to movio! Verify your account by clicking on {##Verify Email##}",
-                email_style=VerificationEmailStyle.LINK
-                )
+                email_style=cognito.VerificationEmailStyle.LINK
+            )
         )
