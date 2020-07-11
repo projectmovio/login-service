@@ -10,7 +10,7 @@ class Login(core.Stack):
         self._create_userpool()
 
     def _create_userpool(self):
-        cognito.UserPool(
+        user_pool = cognito.UserPool(
             self,
             "movio",
             account_recovery=cognito.AccountRecovery.EMAIL_ONLY,
@@ -31,4 +31,15 @@ class Login(core.Stack):
                 email_body="Thanks for signing up to movio! Verify your account by clicking on {##Verify Email##}",
                 email_style=cognito.VerificationEmailStyle.LINK
             ),
+        )
+
+        user_pool.add_client(
+            self,
+            "movio",
+            auth_flows=cognito.AuthFlow(refresh_token=True),
+            o_auth=cognito.OAuthSettings(
+                flows=cognito.OAuthFlows(authorization_code_grant=True),
+                callback_urls=["https://oauth.tools/callback/code"],  # TODO change to callback when UI gets implemented
+                scopes=[cognito.OAuthScope.EMAIL, cognito.OAuthScope.OPENID, cognito.OAuthScope.PROFILE]),
+            prevent_user_existence_errors=True,
         )
