@@ -34,7 +34,6 @@ class Login(core.Stack):
         )
 
         user_pool.add_client(
-            self,
             "movio",
             auth_flows=cognito.AuthFlow(refresh_token=True),
             o_auth=cognito.OAuthSettings(
