@@ -1,3 +1,4 @@
 # Deploying
 
-`cdk deploy '*'`
+* `pip install -U -r deploy/requirements.txt`
+* `cdk deploy '*'`
