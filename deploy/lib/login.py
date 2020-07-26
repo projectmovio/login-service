@@ -34,11 +34,11 @@ class Login(core.Stack):
         )
 
         user_pool.add_client(
-            "movio",
+            "moshan",
             auth_flows=cognito.AuthFlow(refresh_token=True),
             o_auth=cognito.OAuthSettings(
                 flows=cognito.OAuthFlows(authorization_code_grant=True),
-                callback_urls=["https://oauth.tools/callback/code"],  # TODO change to callback when UI gets implemented
+                callback_urls=["https://moshan.tv/callback.html"],
                 scopes=[cognito.OAuthScope.EMAIL, cognito.OAuthScope.OPENID, cognito.OAuthScope.PROFILE]),
             prevent_user_existence_errors=True,
         )
