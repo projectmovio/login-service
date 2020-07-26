@@ -23,12 +23,12 @@ class Login(core.Stack):
                 email=cognito.StandardAttribute(mutable=False, required=True),
             ),
             user_invitation=cognito.UserInvitationConfig(
-                email_subject="Movio email verification",
-                email_body="Thanks for signing up to movio! Your username is {username} and temporary password is {####}",
+                email_subject="Moshan email verification",
+                email_body="Thanks for signing up to moshan! Your username is {username} and temporary password is {####}",
             ),
             user_verification=cognito.UserVerificationConfig(
-                email_subject="Movio email verification",
-                email_body="Thanks for signing up to movio! Verify your account by clicking on {##Verify Email##}",
+                email_subject="Moshan email verification",
+                email_body="Thanks for signing up to moshan! Verify your account by clicking on {##Verify Email##}",
                 email_style=cognito.VerificationEmailStyle.LINK
             ),
         )
