@@ -51,3 +51,10 @@ class Login(core.Stack):
             domain_name=self.domain_name,
             validation_method=ValidationMethod.DNS
         )
+        user_pool.add_domain(
+            "CognitoDomain",
+            custom_domain=cognito.CustomDomainOptions(
+                domain_name=self.domain_name,
+                certificate=cert
+            )
+        )
