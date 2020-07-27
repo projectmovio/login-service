@@ -1,12 +1,14 @@
 from aws_cdk import core
 
 import aws_cdk.aws_cognito as cognito
+from aws_cdk.aws_certificatemanager import Certificate, ValidationMethod
 
 
 class Login(core.Stack):
 
-    def __init__(self, app: core.App, id: str, **kwargs) -> None:
+    def __init__(self, app: core.App, id: str, domain_name: str, **kwargs) -> None:
         super().__init__(app, id, **kwargs)
+        self.domain_name = domain_name
         self._create_userpool()
 
     def _create_userpool(self):
@@ -41,4 +43,11 @@ class Login(core.Stack):
                 callback_urls=["https://moshan.tv/callback.html"],
                 scopes=[cognito.OAuthScope.EMAIL, cognito.OAuthScope.OPENID, cognito.OAuthScope.PROFILE]),
             prevent_user_existence_errors=True,
+        )
+
+        cert = Certificate(
+            self,
+            "certificate",
+            domain_name=self.domain_name,
+            validation_method=ValidationMethod.DNS
         )
