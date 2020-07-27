@@ -1,13 +1,14 @@
 from aws_cdk import core
 
 import aws_cdk.aws_cognito as cognito
-from aws_cdk.aws_certificatemanager import Certificate, ValidationMethod
+from aws_cdk.aws_certificatemanager import Certificate
 
 
 class Login(core.Stack):
 
-    def __init__(self, app: core.App, id: str, domain_name: str, **kwargs) -> None:
+    def __init__(self, app: core.App, id: str, domain_name: str, cert_arn, **kwargs) -> None:
         super().__init__(app, id, **kwargs)
+        self.cert_arn = cert_arn
         self.domain_name = domain_name
         self._create_userpool()
 
@@ -45,12 +46,7 @@ class Login(core.Stack):
             prevent_user_existence_errors=True,
         )
 
-        cert = Certificate(
-            self,
-            "certificate",
-            domain_name=self.domain_name,
-            validation_method=ValidationMethod.DNS
-        )
+        cert = Certificate.from_certificate_arn(self, "domainCert", self.cert_arn)
         user_pool.add_domain(
             "CognitoDomain",
             custom_domain=cognito.CustomDomainOptions(
