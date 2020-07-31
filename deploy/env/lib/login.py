@@ -27,7 +27,7 @@ class Login(core.Stack):
             ),
             user_invitation=cognito.UserInvitationConfig(
                 email_subject="Moshan email verification",
-                email_body="Thanks for signing up to moshan! Your username is {username} and temporary password is {####}",
+                email_body="Thanks for signing up to moshan! Your username is {username} and temporary password is {####}\nYou can now login at https://moshan.tv",
             ),
             user_verification=cognito.UserVerificationConfig(
                 email_subject="Moshan email verification",
